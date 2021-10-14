@@ -1,0 +1,6 @@
+machine 0 - job:0job order:0 machine 0 - job:1job order:3 machine 0 - job:2job order:2 machine 0 - job:3job order:5 machine 0 - job:4job order:1 machine 0 - job:5job order:4 
+machine 1 - job:0job order:1 machine 1 - job:1job order:5 machine 1 - job:2job order:3 machine 1 - job:3job order:0 machine 1 - job:4job order:4 machine 1 - job:5job order:2 
+machine 2 - job:0job order:0 machine 2 - job:1job order:2 machine 2 - job:2job order:1 machine 2 - job:3job order:4 machine 2 - job:4job order:3 machine 2 - job:5job order:5 
+machine 3 - job:0job order:2 machine 3 - job:1job order:5 machine 3 - job:2job order:3 machine 3 - job:3job order:0 machine 3 - job:4job order:1 machine 3 - job:5job order:4 
+machine 4 - job:0job order:1 machine 4 - job:1job order:4 machine 4 - job:2job order:3 machine 4 - job:3job order:2 machine 4 - job:4job order:5 machine 4 - job:5job order:0 
+machine 5 - job:0job order:2 machine 5 - job:1job order:5 machine 5 - job:2job order:1 machine 5 - job:3job order:4 machine 5 - job:4job order:0 machine 5 - job:5job order:3 
