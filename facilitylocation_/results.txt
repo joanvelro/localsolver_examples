@@ -1,0 +1,2 @@
+Total cost value:5819
+i:6 i:12 i:64 i:90 i:98 

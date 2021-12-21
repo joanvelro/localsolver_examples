@@ -1,0 +1,2 @@
+32 objective value:132
+0 :d- value:27 1 :d- value:31 2 :d- value:11 3 :d- value:3 4 :d- value:23 5 :d- value:19 6 :d- value:5 7 :d- value:4 8 :d- value:15 9 :d- value:10 10 :d- value:17 11 :d- value:22 12 :d- value:25 13 :d- value:29 14 :d- value:13 15 :d- value:6 16 :d- value:16 17 :d- value:9 18 :d- value:1 19 :d- value:28 20 :d- value:12 21 :d- value:18 22 :d- value:14 23 :d- value:8 24 :d- value:2 25 :d- value:20 26 :d- value:0 27 :d- value:30 28 :d- value:26 29 :d- value:24 30 :d- value:7 31 :d- value:21 
