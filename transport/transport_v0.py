@@ -30,6 +30,35 @@ from timeit import default_timer as timer
 # start time
 
 
+# Sets
+# plants
+plants = ['seatle', 'san-diego']
+# markets
+markets = ['new-york', 'chicago', 'topeka']
+
+# ::: Parameters :::
+
+# capacity of plants
+capacity = {'seatle': 350,
+            'san-diego': 600}
+
+# demand at markets
+demand = {'new-york': 325,
+          'chicago': 200,
+          'topeka': 375}
+
+# distance in  miles
+distances = {('seatle', 'new-york'): 2500,
+             ('seatle', 'chicago'): 1700,
+             ('seatle', 'topeka'): 1800,
+             ('san-diego', 'new-york'): 2500,
+             ('san-diego', 'chicago'): 1800,
+             ('san-diego', 'topeka'): 1400
+             }
+
+freight = 90  # freight in dollars per case per thousand miles $/1000 miles
+
+
 start = timer()
 
 with localsolver.LocalSolver() as ls:
@@ -38,45 +67,17 @@ with localsolver.LocalSolver() as ls:
     #
     model = ls.model
 
-    # Sets
-    # plants
-    plants = ['seatle', 'san-diego']
-    # markets
-    markets = ['new-york', 'chicago', 'topeka']
-
-    # ::: Parameters :::
-
-    # capacity of plants
-    capacity = {'seatle': 350,
-                'san-diego': 600}
-
-    # demand at markets
-    demand = {'new-york': 325,
-              'chicago': 200,
-              'topeka': 375}
-
-    # distance in  miles
-    distances = {('seatle', 'new-york'): 2500,
-                 ('seatle', 'chicago'): 1700,
-                 ('seatle', 'topeka'): 1800,
-                 ('san-diego', 'new-york'): 2500,
-                 ('san-diego', 'chicago'): 1800,
-                 ('san-diego', 'topeka'): 1400
-                 }
-
-    freight = 90  # freight in dollars per case per thousand miles $/1000 miles
-
     # transport cost in $/ s
     costs = distances
     for key in costs:
-        costs[key] = int(costs[key] * freight / 1000)
+        costs[key] = int(costs.get(key) * freight / 1000)
 
     # =================
     # ::: Variables :::
     # =================
 
     # shipment quantities in cases
-    x_max = 1000
+    x_max = 1000000
     x = [[model.int(0, x_max) for i in range(len(plants))] for j in range(len(markets))]
 
     # ====================
@@ -84,20 +85,20 @@ with localsolver.LocalSolver() as ls:
     # ====================
 
     # # Not surpass capacity
-    if 1 == 1:
-            try:
-                for i in range(0, len(plants)):
-                    model.constraint(model.sum(x[j][i] for j in range(len(markets))) <= capacity[plants[i]])
-            except Exception as exception_msg:
-                print('----> (!) Error in capacity constraint: {}'.format(str(exception_msg)))
+
+    try:
+        for i in range(0, len(plants)):
+            model.constraint(model.sum(x[j][i] for j in range(len(markets))) <= capacity[plants[i]])
+    except Exception as exception_msg:
+        print('----> (!) Error in capacity constraint: {}'.format(str(exception_msg)))
 
     # demand
-    if 1 == 1:
-            try:
-                for j in range(0, len(markets)):
-                    model.constraint(model.sum(x[j][i] for i in range(len(plants))) >= demand[markets[j]])
-            except Exception as exception_msg:
-                print('----> (!) Error in demand constraint: {}'.format(str(exception_msg)))
+
+    try:
+        for j in range(0, len(markets)):
+            model.constraint(model.sum(x[j][i] for i in range(len(plants))) >= demand[markets[j]])
+    except Exception as exception_msg:
+        print('----> (!) Error in demand constraint: {}'.format(str(exception_msg)))
 
     # ========================
     # ::: Objective function :::
@@ -111,6 +112,13 @@ with localsolver.LocalSolver() as ls:
     model.minimize(OF)
 
     model.close()
+
+    initialization = True
+
+    if initialization:
+        x[0][0].value = 1456
+        x[1][0].value = 1
+        x[2][0].value = 16589
 
     # ::: model params :::
 

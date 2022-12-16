@@ -12,7 +12,7 @@ with localsolver.LocalSolver() as ls:
     #
     # Reads instance data
     #
-    file_name = 'instances//br17.atsp'
+    file_name = 'instances//rbg443.atsp'
     file_it = iter(read_elem(file_name))
 
     # The input files follow the TSPLib "explicit" format.

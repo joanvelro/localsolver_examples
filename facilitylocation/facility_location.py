@@ -1,5 +1,7 @@
 ########## facility_location.py ##########
 
+# python facility_location.py instances/pmed1.in results.txt
+import numpy
 import localsolver
 import sys
 
@@ -14,7 +16,6 @@ def read_integers(filename):
 
 
 with localsolver.LocalSolver() as ls:
-
     #
     # Reads instance data
     #
@@ -22,21 +23,27 @@ with localsolver.LocalSolver() as ls:
     file_it = iter(read_integers(sys.argv[1]))
     # Number of locations
     N = next(file_it)
+    print('Number of locations:', N)
     # Number of edges between locations
     E = next(file_it)
+    print('Number of edges between locations:', E)
     # Size of the subset S of facilities
     p = next(file_it)
+    print('Size of the subset S of facilities:', p)
 
     # w: Weight matrix of the shortest path between locations
     # wmax: Maximum distance between two locations
     wmax = 0
-    w = [None]*N
+    w = [None] * N
     for i in range(N):
-        w[i] = [None]*N
+        w[i] = [None] * N
         for j in range(N):
             w[i][j] = next(file_it)
             if w[i][j] > wmax:
                 wmax = w[i][j]
+
+    print('Weight matrix:', numpy.array(w))
+    print('Weight matrix:', numpy.array(w).shape)
 
     #
     # Declares the optimization model
@@ -51,16 +58,17 @@ with localsolver.LocalSolver() as ls:
     m.constraint(opened_locations <= p)
 
     # Costs between location i and j is w[i][j] if j is a facility or 2*wmax if not
-    costs = [None]*N
+    costs = [None] * N
     for i in range(N):
-        costs[i] = [None]*N
+        costs[i] = [None] * N
         for j in range(N):
-            costs[i][j] = m.iif(x[j], w[i][j], 2*wmax)
+            costs[i][j] = m.iif(x[j], w[i][j], 2 * wmax)
 
     # Cost between location i and the closest facility
-    cost = [None]*N
+    cost = [None] * N
     for i in range(N):
         cost[i] = m.min(costs[i][j] for j in range(N))
+
 
     # Minimize the total cost
     total_cost = m.sum(cost[i] for i in range(N))
@@ -71,8 +79,10 @@ with localsolver.LocalSolver() as ls:
     #
     # Parameterizes the solver
     #
-    if len(sys.argv) >= 4: ls.param.time_limit = int(sys.argv[3])
-    else: ls.param.time_limit = 20
+    if len(sys.argv) >= 4:
+        ls.param.time_limit = int(sys.argv[3])
+    else:
+        ls.param.time_limit = 20
 
     ls.solve()
 
@@ -83,8 +93,8 @@ with localsolver.LocalSolver() as ls:
     #
     if len(sys.argv) >= 3:
         with open(sys.argv[2], 'w') as f:
-            f.write("%d\n" % total_cost.value)
+            f.write("Total cost value:%d\n" % total_cost.value)
             for i in range(N):
                 if x[i].value == 1:
-                    f.write("%d " % i)
+                    f.write("i:%d " % i)
             f.write("\n")

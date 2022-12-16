@@ -1,0 +1,201 @@
+{
+    "objective": 549.8029728109364,
+    "solution": {
+        "component_to_pool_fraction": [
+            {
+                "component": "c1",
+                "pool": "o1",
+                "flow": 0.2763865848172961
+            },
+            {
+                "component": "c1",
+                "pool": "o2",
+                "flow": 0.0
+            },
+            {
+                "component": "c2",
+                "pool": "o1",
+                "flow": 0.7236134340085921
+            },
+            {
+                "component": "c2",
+                "pool": "o2",
+                "flow": 0.0
+            },
+            {
+                "component": "c3",
+                "pool": "o1",
+                "flow": 0.0
+            },
+            {
+                "component": "c3",
+                "pool": "o2",
+                "flow": 0.0
+            },
+            {
+                "component": "c4",
+                "pool": "o1",
+                "flow": 0.0
+            },
+            {
+                "component": "c4",
+                "pool": "o2",
+                "flow": 0.638976756598838
+            },
+            {
+                "component": "c5",
+                "pool": "o1",
+                "flow": 0.0
+            },
+            {
+                "component": "c5",
+                "pool": "o2",
+                "flow": 0.3610234232894106
+            }
+        ],
+        "component_to_product": [
+            {
+                "component": "c1",
+                "product": "p1",
+                "flow": 0.0
+            },
+            {
+                "component": "c1",
+                "product": "p2",
+                "flow": 0.0
+            },
+            {
+                "component": "c1",
+                "product": "p3",
+                "flow": 0.0
+            },
+            {
+                "component": "c1",
+                "product": "p4",
+                "flow": 0.0
+            },
+            {
+                "component": "c2",
+                "product": "p1",
+                "flow": 0.0
+            },
+            {
+                "component": "c2",
+                "product": "p2",
+                "flow": 0.0
+            },
+            {
+                "component": "c2",
+                "product": "p3",
+                "flow": 0.0
+            },
+            {
+                "component": "c2",
+                "product": "p4",
+                "flow": 0.0
+            },
+            {
+                "component": "c3",
+                "product": "p1",
+                "flow": 0.0
+            },
+            {
+                "component": "c3",
+                "product": "p2",
+                "flow": 0.0
+            },
+            {
+                "component": "c3",
+                "product": "p3",
+                "flow": 0.0
+            },
+            {
+                "component": "c3",
+                "product": "p4",
+                "flow": 0.0
+            },
+            {
+                "component": "c4",
+                "product": "p1",
+                "flow": 0.0
+            },
+            {
+                "component": "c4",
+                "product": "p2",
+                "flow": 0.0
+            },
+            {
+                "component": "c4",
+                "product": "p3",
+                "flow": 0.0
+            },
+            {
+                "component": "c4",
+                "product": "p4",
+                "flow": 0.0
+            },
+            {
+                "component": "c5",
+                "product": "p1",
+                "flow": 0.0
+            },
+            {
+                "component": "c5",
+                "product": "p2",
+                "flow": 0.0
+            },
+            {
+                "component": "c5",
+                "product": "p3",
+                "flow": 0.0
+            },
+            {
+                "component": "c5",
+                "product": "p4",
+                "flow": 0.0
+            }
+        ],
+        "pool_to_product": [
+            {
+                "pool": "o1",
+                "product": "p1",
+                "flow": 0.0
+            },
+            {
+                "pool": "o1",
+                "product": "p2",
+                "flow": 19.209680671254777
+            },
+            {
+                "pool": "o1",
+                "product": "p3",
+                "flow": 0.0
+            },
+            {
+                "pool": "o1",
+                "product": "p4",
+                "flow": 8.086651610628449
+            },
+            {
+                "pool": "o2",
+                "product": "p1",
+                "flow": 0.0
+            },
+            {
+                "pool": "o2",
+                "product": "p2",
+                "flow": 5.790319329121809
+            },
+            {
+                "pool": "o2",
+                "product": "p3",
+                "flow": 0.0
+            },
+            {
+                "pool": "o2",
+                "product": "p4",
+                "flow": 1.9133483912380485
+            }
+        ]
+    }
+}

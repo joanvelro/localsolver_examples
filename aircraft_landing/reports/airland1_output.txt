@@ -1,0 +1,3 @@
+TOTAL LANDING COST VALUE: 700
+LANDING ORDER:
+--> Aircraft 2 --> Aircraft 3 --> Aircraft 4 --> Aircraft 5 --> Aircraft 6 --> Aircraft 7 --> Aircraft 8 --> Aircraft 0 --> Aircraft 9 --> Aircraft 1 
