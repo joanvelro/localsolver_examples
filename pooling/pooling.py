@@ -141,7 +141,8 @@ def main(instance_file, output_file, time_limit):
         #  ----------- Decision variables -------------
         # =============================================
         # Flow from the components to the products
-        flowComponentToProduct = [[model.float(0, data.upperBoundComponentToProduct[c][p])
+        model.flowComponentToProduct = []
+        model.flowComponentToProduct = [[model.float(0, data.upperBoundComponentToProduct[c][p])
                                    for p in range(data.nbProducts)] for c in range(data.nbComponents)]
 
         # Fraction of the total flow in pool o coming from the component c
@@ -169,7 +170,7 @@ def main(instance_file, output_file, time_limit):
 
         # Component supply
         for c in range(data.nbComponents):
-            flowToProducts = model.sum(flowComponentToProduct[c][p]
+            flowToProducts = model.sum(model.flowComponentToProduct[c][p]
                                        for p in range(data.nbProducts))
             flowToPools = model.sum(flowComponentToProductByPool[c][o][p]
                                     for p in range(data.nbProducts) for o in range(data.nbPools))
@@ -188,7 +189,7 @@ def main(instance_file, output_file, time_limit):
         for p in range(data.nbProducts):
             flowFromPools = model.sum(flowPoolToProduct[o][p]
                                       for o in range(data.nbPools))
-            flowFromComponents = model.sum(flowComponentToProduct[c][p]
+            flowFromComponents = model.sum(model.flowComponentToProduct[c][p]
                                            for c in range(data.nbComponents))
             totalInFlow = model.sum(flowFromComponents, flowFromPools)
             model.constraint(totalInFlow <= data.productCapacities[p])
@@ -199,7 +200,7 @@ def main(instance_file, output_file, time_limit):
             for k in range(data.nbAttributes):
                 # Attribute from the components
                 attributeFromComponents = model.sum(data.componentQuality[c][k] *
-                                                    flowComponentToProduct[c][p] for c in range(data.nbComponents))
+                                                    model.flowComponentToProduct[c][p] for c in range(data.nbComponents))
 
                 # Attribute from the pools
                 attributeFromPools = model.sum(data.componentQuality[c][k] *
@@ -207,7 +208,7 @@ def main(instance_file, output_file, time_limit):
                                                for c in range(data.nbComponents))
 
                 # Total flow in the blending
-                totalFlowIn = model.sum(flowComponentToProduct[c][p]
+                totalFlowIn = model.sum(model.flowComponentToProduct[c][p]
                                         for c in range(data.nbComponents)) + \
                               model.sum(flowPoolToProduct[o][p] for o in range(data.nbPools))
 
@@ -221,7 +222,7 @@ def main(instance_file, output_file, time_limit):
 
         # Cost of the flows from the components directly to the products
         directFlowCost = model.sum(data.costComponentToProduct[c][p] *
-                                   flowComponentToProduct[c][p] for c in range(data.nbComponents)
+                                   model.flowComponentToProduct[c][p] for c in range(data.nbComponents)
                                    for p in range(data.nbProducts))
 
         # Cost of the flows from the components to the products passing by the pools
@@ -231,13 +232,13 @@ def main(instance_file, output_file, time_limit):
                                      for p in range(data.nbProducts))
 
         # Gain of selling the final products
-        productsGain = model.sum((model.sum(flowComponentToProduct[c][p]
+        productsGain = model.sum((model.sum(model.flowComponentToProduct[c][p]
                                             for c in range(data.nbComponents)) +
                                   model.sum(flowPoolToProduct[o][p] for o in range(data.nbPools)))
                                  * data.productPrices[p] for p in range(data.nbProducts))
 
         # Cost of buying the components
-        componentsCost = model.sum((model.sum(flowComponentToProduct[c][p]
+        componentsCost = model.sum((model.sum(model.flowComponentToProduct[c][p]
                                               for p in range(data.nbProducts)) +
                                     model.sum(fractionComponentToPool[c][o] * flowPoolToProduct[o][p]
                                               for p in range(data.nbProducts) for o in range(data.nbPools))) *
@@ -275,7 +276,7 @@ def main(instance_file, output_file, time_limit):
             for p in range(data.nbProducts):
                 component_to_poduct.append({"component": data.componentNames[c],
                                             "product": data.productNames[p],
-                                            "flow": flowComponentToProduct[c][p].value})
+                                            "flow": model.flowComponentToProduct[c][p].value})
 
         # Solution fraction of the inflow at pool o coming from the component c
         for c in range(data.nbComponents):
